@@ -1,17 +1,15 @@
-import collection.StudyGroupCollectionManager;
-import data.*;
-import exceptions.CommandDoesNotExistException;
-import exceptions.InvalidInputException;
-import exceptions.KeyAlreadyExistsException;
-import exceptions.KeyDoesNotExistException;
-import file.FileManager;
-import reader.CommandParser;
+import server.collectionManagement.StudyGroupCollectionManager;
+import common.collectionClasses.StudyGroup;
+import common.exceptions.CommandDoesNotExistException;
+import common.exceptions.InvalidInputException;
+import common.exceptions.KeyAlreadyExistsException;
+import common.exceptions.KeyDoesNotExistException;
+import common.json.FileManager;
+import common.io.consoleIO.CommandParser;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -63,7 +61,7 @@ public class Main {
                 while (true) {
                     try {
                         System.out.print("Enter a command: ");
-                        cp.readCommand(cp.getCommandFromConsole(scanner), scanner, false);
+                        cp.readCommand(scanner,false);
                     } catch (InvalidInputException e) {
                         System.out.println(e.getMessage());
                     } catch (KeyDoesNotExistException | KeyAlreadyExistsException | CommandDoesNotExistException e) {
