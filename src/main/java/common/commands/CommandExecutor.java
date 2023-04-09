@@ -21,10 +21,17 @@ public class CommandExecutor {
     }
 
 
-    public void execute(CommandWithResponse command) {
+    public void execute(Command command) {
         command.setCollection(collection);
         command.execute();
-        response = command.getCommandResponse();
+        if (command.getClass() == CommandWithResponse.class) {
+            CommandWithResponse commandWithResponse = (CommandWithResponse) command;
+            response = commandWithResponse.getCommandResponse();
+        }
+    }
+
+    public void setCollection(StudyGroupCollectionManager collection) {
+        this.collection = collection;
     }
 
     public Response getResponse() {

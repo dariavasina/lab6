@@ -1,7 +1,13 @@
 package server;
 
+import common.commands.CommandExecutor;
+import common.io.consoleIO.CommandParser;
+import common.io.consoleIO.ConfirmationReader;
+import common.json.FileManager;
 import common.networkStructures.Request;
 import common.commands.Command;
+import server.collectionManagement.CollectionManager;
+import server.collectionManagement.StudyGroupCollectionManager;
 
 import java.io.*;
 import java.net.*;
@@ -23,6 +29,15 @@ public class Main {
             InetAddress host = InetAddress.getByName("localhost");
 
             int port = 6888;
+
+            String clientsDataPath = "src/main/java/server/clientsData/collection.json";
+            StudyGroupCollectionManager collectionManager = new StudyGroupCollectionManager(FileManager.readFromJson(clientsDataPath));
+            CommandExecutor commandExecutor = new CommandExecutor(collectionManager);
+            CommandParser commandParser = new CommandParser(collectionManager);
+
+            Scanner scanner = new Scanner(System.in);
+            ConfirmationReader confirmationReader = new ConfirmationReader();
+
             try (ServerSocket serv = new ServerSocket(port)) {
                 clientSocket = serv.accept();
                 try (InputStream inputStream = clientSocket.getInputStream();
@@ -31,7 +46,8 @@ public class Main {
                     while (true) {
                         Request request = (Request) objectInputStream.readObject();
                         Command command = request.getCommand();
-                        command.execute();
+                        commandExecutor.setCollection(collectionManager);
+                        commandExecutor.execute(command);
                     }
                 } catch (Exception e) {
                     System.out.println(e.getMessage());

@@ -1,9 +1,11 @@
 package common.commands.commandObjects;
 
+import common.commands.CommandWithResponse;
+import common.networkStructures.Response;
 import server.collectionManagement.StudyGroupCollectionManager;
 import common.commands.Command;
 
-public class HelpCommand extends Command {
+public class HelpCommand extends CommandWithResponse {
     public HelpCommand(StudyGroupCollectionManager collection) {
         super(collection);
     }
@@ -13,7 +15,7 @@ public class HelpCommand extends Command {
 
     @Override
     public void execute() {
-        System.out.println("""
+        /*System.out.println("""
                 help: output help for available commands
                 info: output to the standard output stream information about the collection (type, initialization date, number of elements, etc.)
                 show: output to the standard output stream all elements of the collection in the string representation
@@ -30,5 +32,11 @@ public class HelpCommand extends Command {
                 count_by_students_count <studentsCount> : print the number of elements whose studentsCount field value is equal to the specified
                 filter_by_should_be_expelled <shouldBeExpelled> : output elements whose value of the field shouldBeExpelled is equal to the specified
                 print_field_descending_students_count: print the values of the studentsCount field of all elements in descending order""");
+         */
+    }
+
+    @Override
+    public Response getCommandResponse() {
+        return new Response("to be done...");
     }
 }

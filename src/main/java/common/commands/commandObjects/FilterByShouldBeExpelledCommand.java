@@ -1,9 +1,12 @@
 package common.commands.commandObjects;
 
+import common.commands.CommandWithResponse;
+import common.exceptions.InvalidArgumentsException;
+import common.networkStructures.Response;
 import server.collectionManagement.StudyGroupCollectionManager;
 import common.commands.Command;
 
-public class FilterByShouldBeExpelledCommand extends Command {
+public class FilterByShouldBeExpelledCommand extends CommandWithResponse {
     public FilterByShouldBeExpelledCommand(StudyGroupCollectionManager collection) {
         super(collection);
     }
@@ -12,7 +15,23 @@ public class FilterByShouldBeExpelledCommand extends Command {
     }
 
     @Override
+    public void setArgs(String[] args) throws InvalidArgumentsException {
+        try {
+            Integer shouldBeExpelled = Integer.parseInt(args[0]);
+            super.setArgs(new String[]{String.valueOf(shouldBeExpelled)});
+        } catch (NumberFormatException e) {
+            throw new InvalidArgumentsException("shouldBeExpelled must be a number! Please try to enter a command again");
+        }
+    }
+
+    @Override
     public void execute() {
-        //getCollection().filterByShouldBeExpelled(getShouldBeExpelled());
+        Integer shouldBeExpelled = Integer.parseInt(getArgs()[0]);
+        getCollection().filterByShouldBeExpelled(shouldBeExpelled);
+    }
+
+    @Override
+    public Response getCommandResponse() {
+        return new Response("to be done...");
     }
 }

@@ -1,5 +1,6 @@
 package common.commands;
 
+import common.exceptions.InvalidArgumentsException;
 import server.collectionManagement.StudyGroupCollectionManager;
 import common.collectionClasses.StudyGroup;
 import common.json.FileManager;
@@ -31,7 +32,7 @@ public abstract class Command implements Serializable {
         return args;
     }
 
-    public void setArgs(String[] args) {
+    public void setArgs(String[] args) throws InvalidArgumentsException {
         this.args = args;
     }
 

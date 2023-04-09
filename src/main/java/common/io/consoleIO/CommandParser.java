@@ -160,7 +160,7 @@ public class CommandParser {
         return new Triplet<>(commandName, args, studyGroup);
     }
 
-    public Command pack(Triplet<String, String[], StudyGroup> parsedCommand) throws InvalidInputException{
+    public Command pack(Triplet<String, String[], StudyGroup> parsedCommand) throws InvalidInputException, InvalidArgumentsException {
         String commandName = parsedCommand.getFirst();
         String[] args = parsedCommand.getSecond();
         StudyGroup studyGroup = parsedCommand.getThird();

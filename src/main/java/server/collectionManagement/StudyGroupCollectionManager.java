@@ -31,7 +31,7 @@ public class StudyGroupCollectionManager extends CollectionManager<Long, StudyGr
                 if (Objects.equals(collection.get(key).getId(), id)) {
                     newStudyGroup.setId(id);
                     collection.put(key, newStudyGroup);
-                    System.out.printf("Element with ID %s successfully updated\n", id);
+                    //System.out.printf("Element with ID %s successfully updated\n", id);
                 }
             }
         }
@@ -44,7 +44,7 @@ public class StudyGroupCollectionManager extends CollectionManager<Long, StudyGr
     public void removeByKey(Long key) {
         if (containsKey(key)) {
             getMap().remove(key);
-            System.out.printf("Element with key %s has been successfully removed\n", key);
+            //System.out.printf("Element with key %s has been successfully removed\n", key);
         }
     }
 
@@ -56,14 +56,16 @@ public class StudyGroupCollectionManager extends CollectionManager<Long, StudyGr
         }
         else {
             for (Long key : collection.keySet()) {
-                System.out.println(key + "\n" + collection.get(key));
+                //System.out.println(key + "\n" + collection.get(key));
             }
         }
     }
 
-    public void info() {
-        System.out.println("Number of elements in the collection: " + getMap().size());
-        System.out.println("Initialization date: " + getInitializationDate());
+    public StringBuilder info() {
+        StringBuilder output = new StringBuilder();
+        output.append("Number of elements in the collection: ").append(getMap().size()).append("\n");
+        output.append("Initialization date: ").append(getInitializationDate());
+        return output;
     }
 
     public void replaceIfLower(Long keyToChange, StudyGroup value) {

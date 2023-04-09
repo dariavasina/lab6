@@ -3,12 +3,11 @@ package client;
 import common.commands.Command;
 import common.dataStructures.Triplet;
 import common.networkStructures.Request;
+import common.networkStructures.Response;
 import server.collectionManagement.StudyGroupCollectionManager;
 import common.collectionClasses.StudyGroup;
 import common.exceptions.CommandDoesNotExistException;
-import common.exceptions.InvalidInputException;
-import common.exceptions.KeyAlreadyExistsException;
-import common.exceptions.KeyDoesNotExistException;
+
 import common.io.consoleIO.CommandParser;
 
 import java.io.*;
@@ -40,7 +39,6 @@ public class Main {
                     Triplet<String, String[], StudyGroup> parsedCommand = cp.readCommand(scanner, false);
                     Command command = cp.pack(parsedCommand);
                     Request request = new Request(command);
-                    objectOutputStream.writeObject(request);
 
                     InputStream is;
                     OutputStream os;
@@ -52,6 +50,13 @@ public class Main {
                     try (Socket sock = new Socket(host, port)) {
                         os = sock.getOutputStream();
                         os.write(out.toByteArray());
+                        objectOutputStream.writeObject(request);
+
+                        ObjectInputStream objectInputStream = new ObjectInputStream(sock.getInputStream());
+                        Response response = (Response) objectInputStream.readObject();
+                        System.out.println(response.getOutput());
+
+
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
