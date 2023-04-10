@@ -1,10 +1,14 @@
 package common.commands.commandObjects;
 
+import common.commands.CommandWithResponse;
 import common.exceptions.InvalidArgumentsException;
+import common.networkStructures.Response;
 import server.collectionManagement.StudyGroupCollectionManager;
 import common.commands.Command;
 
-public class CountByStudentsCountCommand extends Command {
+public class CountByStudentsCountCommand extends CommandWithResponse {
+    int res;
+    Integer studentsCount;
     public CountByStudentsCountCommand(StudyGroupCollectionManager collection) {
         super(collection);
     }
@@ -24,7 +28,14 @@ public class CountByStudentsCountCommand extends Command {
 
     @Override
     public void execute() {
-        Integer studentsCount = Integer.parseInt(getArgs()[0]);
-        getCollection().countByStudentsCount(studentsCount);
+        studentsCount = Integer.parseInt(getArgs()[0]);
+        res = getCollection().countByStudentsCount(studentsCount);
+    }
+
+    @Override
+    public Response getCommandResponse() {
+        StringBuilder output = new StringBuilder();
+        output.append("There are ").append(res).append(" study groups in the collection with").append(studentsCount).append(" students");
+        return new Response(output.toString());
     }
 }

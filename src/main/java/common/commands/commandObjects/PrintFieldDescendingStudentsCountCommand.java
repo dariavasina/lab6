@@ -6,6 +6,7 @@ import server.collectionManagement.StudyGroupCollectionManager;
 import common.commands.Command;
 
 public class PrintFieldDescendingStudentsCountCommand extends CommandWithResponse {
+    StringBuilder output = new StringBuilder();
     public PrintFieldDescendingStudentsCountCommand(StudyGroupCollectionManager collection) {
         super(collection);
     }
@@ -15,11 +16,11 @@ public class PrintFieldDescendingStudentsCountCommand extends CommandWithRespons
 
     @Override
     public void execute() {
-        getCollection().printFieldDescendingStudentsCount();
+        output = getCollection().printFieldDescendingStudentsCount();
     }
 
     @Override
     public Response getCommandResponse() {
-        return new Response("to be done...");
+        return new Response(output.toString());
     }
 }

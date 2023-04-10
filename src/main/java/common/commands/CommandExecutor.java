@@ -1,5 +1,6 @@
 package common.commands;
 
+import common.exceptions.EmptyCollectionException;
 import common.networkStructures.Response;
 import server.collectionManagement.StudyGroupCollectionManager;
 import common.commands.commandObjects.*;
@@ -21,20 +22,18 @@ public class CommandExecutor {
     }
 
 
-    public void execute(Command command) {
+    public void execute(CommandWithResponse command) throws EmptyCollectionException {
         command.setCollection(collection);
         command.execute();
-        if (command.getClass() == CommandWithResponse.class) {
-            CommandWithResponse commandWithResponse = (CommandWithResponse) command;
-            response = commandWithResponse.getCommandResponse();
-        }
+        CommandWithResponse commandWithResponse = (CommandWithResponse) command;
+        response = commandWithResponse.getCommandResponse();
     }
 
     public void setCollection(StudyGroupCollectionManager collection) {
         this.collection = collection;
     }
 
-    public Response getResponse() {
+    public Response getCommandResponse() {
         return response;
     }
 }

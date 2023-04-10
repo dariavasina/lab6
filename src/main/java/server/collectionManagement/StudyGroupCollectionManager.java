@@ -49,16 +49,18 @@ public class StudyGroupCollectionManager extends CollectionManager<Long, StudyGr
     }
 
     @Override
-    public void show() {
+    public StringBuilder show() throws EmptyCollectionException {
+        StringBuilder output = new StringBuilder();
         Map<Long, StudyGroup> collection = getMap();
         if (collection.isEmpty()) {
-            System.out.println("The collection is empty");
+            throw new EmptyCollectionException();
         }
         else {
             for (Long key : collection.keySet()) {
-                //System.out.println(key + "\n" + collection.get(key));
+                output.append(key).append("\n").append(collection.get(key));
             }
         }
+        return output;
     }
 
     public StringBuilder info() {
@@ -106,7 +108,7 @@ public class StudyGroupCollectionManager extends CollectionManager<Long, StudyGr
         }
     }
 
-    public void countByStudentsCount(Integer studentsCount) {
+    public int countByStudentsCount(Integer studentsCount) {
         int count = 0;
         Map<Long, StudyGroup> collection = getMap();
         for (Long key : collection.keySet()) {
@@ -114,7 +116,8 @@ public class StudyGroupCollectionManager extends CollectionManager<Long, StudyGr
                 count += 1;
             }
         }
-        System.out.println("There are " + count + " study groups in the collection with " + studentsCount + " students");
+        return count;
+        //System.out.println("There are " + count + " study groups in the collection with " + studentsCount + " students");
     }
 
     public boolean idInCollection(Long id) {
@@ -141,22 +144,25 @@ public class StudyGroupCollectionManager extends CollectionManager<Long, StudyGr
         }
     }
 
-    public void filterByShouldBeExpelled (Integer shouldBeExpelled) {
+    public StringBuilder filterByShouldBeExpelled (Integer shouldBeExpelled) {
+        StringBuilder output = new StringBuilder();
         Map<Long, StudyGroup> collection = getMap();
         boolean found = false;
         for (Long key : collection.keySet()) {
             StudyGroup group = collection.get(key);
             if (Objects.equals(group.getShouldBeExpelled(), shouldBeExpelled)) {
-                System.out.print(group);
+                output.append(group);
                 found = true;
             }
         }
         if (!found) {
-            System.out.println("There are no elements in the collection with " + shouldBeExpelled + " shouldBeExpelled");
+            output.append("There are no elements in the collection with ").append(shouldBeExpelled).append(" shouldBeExpelled");
         }
+        return output;
     }
 
-    public void printFieldDescendingStudentsCount () {
+    public StringBuilder printFieldDescendingStudentsCount () {
+        StringBuilder output = new StringBuilder();
         HashMap<Long, StudyGroup> collection = getMap();
         ArrayList<StudyGroup> list = new ArrayList<>();
         for (Map.Entry<Long, StudyGroup> entry : collection.entrySet()) {
@@ -169,8 +175,9 @@ public class StudyGroupCollectionManager extends CollectionManager<Long, StudyGr
             }
         });
         for (StudyGroup g : list) {
-            System.out.println(g.getStudentsCount());
+            output.append(g.getStudentsCount());
         }
+        return output;
     }
 
     public void executeCommandsFromFile(String fileName) throws CommandExecutionException, FileAccessException {

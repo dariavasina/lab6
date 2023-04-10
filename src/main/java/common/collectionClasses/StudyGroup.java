@@ -1,9 +1,10 @@
 package common.collectionClasses;
 import common.exceptions.InvalidInputException;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class StudyGroup implements Comparable<StudyGroup> {
+public class StudyGroup implements Comparable<StudyGroup>, Serializable {
     private Long id;
     private static Long nextId = 0L;
     private String name; //Поле не может быть null, Строка не может быть пустой

@@ -1,5 +1,6 @@
 package common.commands;
 
+import common.exceptions.EmptyCollectionException;
 import common.exceptions.InvalidArgumentsException;
 import server.collectionManagement.StudyGroupCollectionManager;
 import common.collectionClasses.StudyGroup;
@@ -44,6 +45,6 @@ public abstract class Command implements Serializable {
         this.studyGroup = studyGroup;
     }
 
-    public abstract void execute();
+    public abstract void execute() throws EmptyCollectionException;
 
 }

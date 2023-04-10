@@ -1,6 +1,7 @@
 package common.io.consoleIO;
 
 import common.commands.Command;
+import common.commands.CommandWithResponse;
 import common.commands.commandObjects.*;
 import common.dataStructures.Pair;
 import common.dataStructures.Triplet;
@@ -123,7 +124,7 @@ public class CommandParser {
         add("filter_by_should_be_expelled");
     }};
 
-    private final Map<String, Command> commandsTable = new HashMap<>() {{
+    private final Map<String, CommandWithResponse> commandsTable = new HashMap<>() {{
         put("help", new HelpCommand());
         put("info", new InfoCommand());
         put("show", new ShowCommand());
@@ -131,8 +132,7 @@ public class CommandParser {
         put("update", new UpdateCommand());
         put("remove_key", new RemoveKeyCommand());
         put("clear", new ClearCommand());
-        put("execute_script", new ExecuteScriptCommand());
-        put("exit", new ExitCommand());
+        //put("execute_script", new ExecuteScriptCommand());
         put("replace_if_greater", new ReplaceIfGreaterCommand());
         put("replace_if_lower", new ReplaceIfLowerCommand());
         put("remove_greater_key", new RemoveGreaterKeyCommand());
@@ -160,12 +160,12 @@ public class CommandParser {
         return new Triplet<>(commandName, args, studyGroup);
     }
 
-    public Command pack(Triplet<String, String[], StudyGroup> parsedCommand) throws InvalidInputException, InvalidArgumentsException {
+    public CommandWithResponse pack(Triplet<String, String[], StudyGroup> parsedCommand) throws InvalidInputException, InvalidArgumentsException {
         String commandName = parsedCommand.getFirst();
         String[] args = parsedCommand.getSecond();
         StudyGroup studyGroup = parsedCommand.getThird();
 
-        Command command = commandsTable.get(commandName);
+        CommandWithResponse command = commandsTable.get(commandName);
 
         if (lineArgCommands.contains(commandName)) {
             if (args.length == 0) {

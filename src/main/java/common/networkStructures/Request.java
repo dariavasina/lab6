@@ -1,5 +1,6 @@
 package common.networkStructures;
 import common.commands.Command;
+import common.commands.CommandWithResponse;
 
 import java.io.Serializable;
 import java.net.SocketAddress;
@@ -7,20 +8,20 @@ import java.net.SocketAddress;
 public class Request implements Serializable {
 
 
-    private Command command;
+    private CommandWithResponse command;
 
     private SocketAddress host;
 
-    public Request(Command command) {
+    public Request(CommandWithResponse command) {
         this.command = command;
     }
 
 
-    public Command getCommand() {
+    public CommandWithResponse getCommand() {
         return command;
     }
 
-    public void setCommand(Command command) {
+    public void setCommand(CommandWithResponse command) {
         this.command = command;
     }
 

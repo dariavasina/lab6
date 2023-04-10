@@ -1,6 +1,8 @@
 package common.collectionClasses;
 
-public enum Color {
+import java.io.Serializable;
+
+public enum Color implements Serializable {
     RED,
     YELLOW,
     ORANGE;

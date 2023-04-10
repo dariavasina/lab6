@@ -1,11 +1,13 @@
 package common.commands.commandObjects;
 
+import common.commands.CommandWithResponse;
+import common.networkStructures.Response;
 import server.collectionManagement.StudyGroupCollectionManager;
 import common.commands.Command;
 import common.collectionClasses.StudyGroup;
 import common.exceptions.KeyDoesNotExistException;
 
-public class UpdateCommand extends Command {
+public class UpdateCommand extends CommandWithResponse {
     private Long id;
     private StudyGroup value;
 
@@ -23,6 +25,11 @@ public class UpdateCommand extends Command {
     }
 
     public UpdateCommand() {
+    }
+
+    @Override
+    public Response getCommandResponse() {
+        return new Response("update finished successfully");
     }
 
     @Override

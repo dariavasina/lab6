@@ -1,5 +1,6 @@
 package server.collectionManagement;
 
+import common.exceptions.EmptyCollectionException;
 import common.exceptions.KeyDoesNotExistException;
 
 
@@ -44,12 +45,11 @@ public abstract class CollectionManager<K, V> {
 
     public void clear() {
         collection.clear();
-        System.out.println("The collection has been successfully cleared");
     }
 
     public abstract void updateByID(K key, V value) throws KeyDoesNotExistException;
 
     public abstract void removeByKey(K key) throws KeyDoesNotExistException;
 
-    public abstract void show();
+    public abstract StringBuilder show() throws EmptyCollectionException;
 }

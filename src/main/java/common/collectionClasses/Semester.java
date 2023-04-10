@@ -1,6 +1,8 @@
 package common.collectionClasses;
 
-public enum Semester {
+import java.io.Serializable;
+
+public enum Semester implements Serializable {
     THIRD,
     FOURTH,
     EIGHTH;

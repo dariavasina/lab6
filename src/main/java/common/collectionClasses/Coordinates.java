@@ -1,6 +1,8 @@
 package common.collectionClasses;
 
-public class Coordinates {
+import java.io.Serializable;
+
+public class Coordinates implements Serializable {
     private Double x; //поле не может быть null
     private int y;
 

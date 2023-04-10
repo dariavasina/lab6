@@ -1,6 +1,8 @@
 package common.collectionClasses;
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable {
     private Double x; //Поле не может быть null
     private Float y; //Поле не может быть null
     private Long z;
