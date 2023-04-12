@@ -22,7 +22,7 @@ public class CommandExecutor {
     }
 
 
-    public void execute(CommandWithResponse command) throws EmptyCollectionException {
+    public void execute(CommandWithResponse command) throws Exception {
         command.setCollection(collection);
         command.execute();
         CommandWithResponse commandWithResponse = (CommandWithResponse) command;

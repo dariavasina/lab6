@@ -1,15 +1,17 @@
-insert 3
-"P3112"
+insert 10
+P3112
 4
 5
 40
 0
 full_time_education
 3
-Roman
+Aboba
 123456
 RED
 RUSSIA
 1
 2
 3
+show
+info

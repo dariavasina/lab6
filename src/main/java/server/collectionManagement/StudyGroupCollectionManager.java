@@ -5,6 +5,9 @@ import common.json.FileManager;
 import common.io.consoleIO.CommandParser;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 
@@ -24,7 +27,7 @@ public class StudyGroupCollectionManager extends CollectionManager<Long, StudyGr
 
 
     @Override
-    public void updateByID(Long id, StudyGroup newStudyGroup) throws KeyDoesNotExistException {
+    public void updateByID(Long id, StudyGroup newStudyGroup) throws IdDoesNotExistException {
         Map<Long, StudyGroup> collection = getMap();
         if (idInCollection(id)) {
             for (Long key : collection.keySet()) {
@@ -36,7 +39,8 @@ public class StudyGroupCollectionManager extends CollectionManager<Long, StudyGr
             }
         }
         else {
-            throw new KeyDoesNotExistException(id.toString());
+            //System.out.println("id not found");
+            throw new IdDoesNotExistException(id.toString());
         }
     }
 
@@ -78,14 +82,14 @@ public class StudyGroupCollectionManager extends CollectionManager<Long, StudyGr
                 if (Objects.equals(key, keyToChange)) {
                     if (value.compareTo(collection.get(key)) < 0) {
                         getMap().put(key, value);
-                        System.out.println("The value by the key " + key + " has been changed");
+                        //System.out.println("The value by the key " + key + " has been changed");
                         changed = true;
                     }
                 }
             }
         }
         if (!changed) {
-            System.out.println("The value by the key " + keyToChange + " was not changed");
+            //System.out.println("The value by the key " + keyToChange + " was not changed");
         }
     }
 
@@ -97,14 +101,14 @@ public class StudyGroupCollectionManager extends CollectionManager<Long, StudyGr
                 if (Objects.equals(key, keyToChange)) {
                     if (value.compareTo(collection.get(key)) > 0) {
                         getMap().put(key, value);
-                        System.out.println("The value by the key " + key + " has been changed");
+                        //System.out.println("The value by the key " + key + " has been changed");
                         changed = true;
                     }
                 }
             }
         }
         if (!changed) {
-            System.out.println("The value by the key " + keyToChange + " was not changed");
+            //System.out.println("The value by the key " + keyToChange + " was not changed");
         }
     }
 
@@ -140,7 +144,7 @@ public class StudyGroupCollectionManager extends CollectionManager<Long, StudyGr
             }
         }
         if (!flag) {
-            System.out.println("There are no elements in the collection with key greater than " + key);
+            //System.out.println("There are no elements in the collection with key greater than " + key);
         }
     }
 
@@ -168,12 +172,7 @@ public class StudyGroupCollectionManager extends CollectionManager<Long, StudyGr
         for (Map.Entry<Long, StudyGroup> entry : collection.entrySet()) {
             list.add(entry.getValue());
         }
-        Collections.sort(list, new Comparator<StudyGroup>() {
-            @Override
-            public int compare(StudyGroup g1, StudyGroup g2) {
-                return -(g1.compareTo(g2));
-            }
-        });
+        Collections.sort(list, (g1, g2) -> -(g1.compareTo(g2)));
         for (StudyGroup g : list) {
             output.append(g.getStudentsCount());
         }
@@ -216,5 +215,18 @@ public class StudyGroupCollectionManager extends CollectionManager<Long, StudyGr
             throw new FileAccessException("Cannot read file: " + fileName);
         }
         executedScripts.remove(fileName);
+    }
+
+    public void save(String file) throws IOException {
+        Path path = Paths.get(file);
+        if (!Files.exists(path)) {
+            try {
+                Files.createFile(path);
+            } catch (IOException e) {
+                System.out.println("Problems with saving into file");
+            }
+        }
+        FileManager fileManager = new FileManager();
+        fileManager.saveToJson(this, file);
     }
 }

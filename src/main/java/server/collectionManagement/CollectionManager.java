@@ -1,6 +1,7 @@
 package server.collectionManagement;
 
 import common.exceptions.EmptyCollectionException;
+import common.exceptions.IdDoesNotExistException;
 import common.exceptions.KeyDoesNotExistException;
 
 
@@ -47,7 +48,7 @@ public abstract class CollectionManager<K, V> {
         collection.clear();
     }
 
-    public abstract void updateByID(K key, V value) throws KeyDoesNotExistException;
+    public abstract void updateByID(K key, V value) throws IdDoesNotExistException;
 
     public abstract void removeByKey(K key) throws KeyDoesNotExistException;
 

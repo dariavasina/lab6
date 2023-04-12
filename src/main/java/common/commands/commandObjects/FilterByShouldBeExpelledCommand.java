@@ -7,6 +7,7 @@ import server.collectionManagement.StudyGroupCollectionManager;
 import common.commands.Command;
 
 public class FilterByShouldBeExpelledCommand extends CommandWithResponse {
+    StringBuilder output;
     public FilterByShouldBeExpelledCommand(StudyGroupCollectionManager collection) {
         super(collection);
     }
@@ -27,11 +28,11 @@ public class FilterByShouldBeExpelledCommand extends CommandWithResponse {
     @Override
     public void execute() {
         Integer shouldBeExpelled = Integer.parseInt(getArgs()[0]);
-        getCollection().filterByShouldBeExpelled(shouldBeExpelled);
+        output = getCollection().filterByShouldBeExpelled(shouldBeExpelled);
     }
 
     @Override
     public Response getCommandResponse() {
-        return new Response("to be done...");
+        return new Response(output.toString());
     }
 }

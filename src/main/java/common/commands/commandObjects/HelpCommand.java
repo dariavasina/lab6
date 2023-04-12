@@ -6,7 +6,7 @@ import server.collectionManagement.StudyGroupCollectionManager;
 import common.commands.Command;
 
 public class HelpCommand extends CommandWithResponse {
-    StringBuilder output;
+    StringBuilder output = new StringBuilder();
     public HelpCommand(StudyGroupCollectionManager collection) {
         super(collection);
     }

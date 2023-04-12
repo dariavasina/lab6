@@ -41,6 +41,7 @@
   },
   "23847": {
     "studentsCount": 0,
+    "shouldBeExpelled": 0,
     "name": "t",
     "coordinates": {
       "x": 5,
@@ -53,6 +54,15 @@
     "name": "y",
     "coordinates": {
       "x": 6,
+      "y": 0
+    }
+  },
+  "10": {
+    "studentsCount": 0,
+    "shouldBeExpelled": 0,
+    "name": "t",
+    "coordinates": {
+      "x": 5,
       "y": 0
     }
   }

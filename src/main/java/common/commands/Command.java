@@ -45,6 +45,6 @@ public abstract class Command implements Serializable {
         this.studyGroup = studyGroup;
     }
 
-    public abstract void execute() throws EmptyCollectionException;
+    public abstract void execute() throws Exception;
 
 }
